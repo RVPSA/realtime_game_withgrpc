@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package Game;
+
+option go_package = "game_backend/";
+
+service GameService {
+  rpc CreateGame(CreateGameRequest) returns (CreateGameResponse);
+  rpc JoinGame(JoinGameRequest) returns (JoinGameResponse);
+}
+
+message CreateGameRequest {
+  string player_name = 1;
+}
+
+message CreateGameResponse {
+  string game_id = 1;
+}
+
+message JoinGameRequest {
+  string game_id = 1;
+  string player_name = 2;
+}
+
+message JoinGameResponse {
+  string status = 1;
+}
