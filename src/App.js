@@ -1,78 +1,143 @@
-import { useState } from "react";
-import { createGame, joinGame } from "./grpcclient/GrpcClient";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import {
+  CreateGame,
+  JoinGame,
+  UpdateGameState,
+  StreamGameUpdate,
+} from "../src/grpcclient/GrpcClient";
 
 function App() {
-  const [createGameUserName, setCreateGameUserName] = useState("");
-  const [joinGameUserName, setJoinGameUserName] = useState("");
-  const [gameId, setGameId] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [username, setUsername] = useState("User");
+  const [username2, setUsername2] = useState("User2");
+  const [gameId, setGameId] = useState();
+
+  // useEffect(() => {
+  //     receiveMessages((message) => {
+  //         setMessages((prev) => [...prev, message]);
+  //     });
+  // }, []);
+  // const handlejoin = ()=>{
+  //     receiveMessages((message)=>{
+  //         setMessages((prev) => [...prev, message]);
+  //     })
+  // }
 
   const handleCreateGame = async () => {
-    if (createGameUserName.trim()) {
-      try {
-        await createGame(createGameUserName);
-        setCreateGameUserName("");
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
+    try {
+      await CreateGame(username);
+      setInput("");
+    } catch (err) {
+      console.error("Error Creating Game:", err);
     }
+    var gameIdl = sessionStorage.getItem("gameId");
+    var playerNamel = sessionStorage.getItem("playerName");
+    StreamGameUpdate(
+      (message) => {
+        setMessages((prev) => [...prev, message]);
+        // console.log(message);
+      },
+      gameIdl,
+      playerNamel
+    );
   };
 
   const handleJoinGame = async () => {
-    if (joinGameUserName.trim()) {
-      try {
-        await joinGame(gameId, joinGameUserName);
-        setGameId("");
-        setJoinGameUserName("");
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
+    try {
+      await JoinGame(gameId, username2);
+    } catch (error) {
+      console.error("Error Joining Game:", error);
     }
+    var gameIdl = sessionStorage.getItem("gameId");
+    var playerNamel = sessionStorage.getItem("playerName");
+    StreamGameUpdate(
+      (message) => {
+        setMessages((prev) => [...prev, message]);
+        // console.log(message);
+      },
+      gameIdl,
+      playerNamel
+    );
+  };
+
+  const handleGameUpdate = async () => {
+    var gameIdl = sessionStorage.getItem("gameId");
+    var playerNamel = sessionStorage.getItem("playerName");
+    try {
+      await UpdateGameState(gameIdl, playerNamel, input);
+    } catch (error) {
+      console.error("Error Updating Game:", error);
+    }
+
+    // StreamGameUpdate(
+    //   (message) => {
+    //     // setMessages((prev) => [...prev, message]);
+    //     console.log(message);
+    //   },
+    //   gameIdl,
+    //   playerNamel
+    // );
   };
 
   return (
-    <>
+    <div style={{ padding: "20px" }}>
+      <h1>Real-Time Chat</h1>
       <div>
-        <div>
-          <h1>Create Game</h1>
-          <label>
-            User name:{" "}
-            <input
-              type="text"
-              onChange={(e) => {
-                setCreateGameUserName(e.target.value);
-              }}
-              value={createGameUserName}
-            />
-          </label>
-          <button onClick={handleCreateGame}>Create Game</button>
-        </div>
-        <div>
-          <h1>Join Game</h1>
-          <label>
-            User name:{" "}
-            <input
-              type="text"
-              onChange={(e) => {
-                setJoinGameUserName(e.target.value);
-              }}
-              value={joinGameUserName}
-            />
-          </label>
-          <label>
-            Game Id:{" "}
-            <input
-              type="text"
-              onChange={(e) => {
-                setGameId(e.target.value);
-              }}
-              value={gameId}
-            />
-          </label>
-          <button onClick={handleJoinGame}>Join Game</button>
-        </div>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <button onClick={handleCreateGame}>Create Game</button>
       </div>
-    </>
+      <div>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username2}
+            onChange={(e) => setUsername2(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          GameId:
+          <input
+            type="text"
+            value={gameId}
+            onChange={(e) => setGameId(e.target.value)}
+          />
+        </label>
+        <button onClick={handleJoinGame}>Join Game</button>
+      </div>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          height: "300px",
+          overflowY: "scroll",
+          margin: "20px 0",
+          padding: "10px",
+        }}
+      >
+        {messages.map((msg, idx) => (
+          <div key={idx}>
+            <strong>{msg.sender}</strong>: {msg.update}
+          </div>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Type a message..."
+        style={{ width: "80%" }}
+      />
+      <button onClick={handleGameUpdate}>Update Game</button>
+    </div>
   );
 }
 
