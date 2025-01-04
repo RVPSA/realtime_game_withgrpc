@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for Game
+ * @fileoverview gRPC-Web generated client stub for game
  * @enhanceable
  * @public
  */
@@ -20,7 +20,7 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 const proto = {};
-proto.Game = require('./game_pb.js');
+proto.game = require('./game_pb.js');
 
 /**
  * @param {string} hostname
@@ -30,7 +30,7 @@ proto.Game = require('./game_pb.js');
  * @struct
  * @final
  */
-proto.Game.GameServiceClient =
+proto.game.GameServiceClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -56,7 +56,7 @@ proto.Game.GameServiceClient =
  * @struct
  * @final
  */
-proto.Game.GameServicePromiseClient =
+proto.game.GameServicePromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -77,39 +77,39 @@ proto.Game.GameServicePromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Game.CreateGameRequest,
- *   !proto.Game.CreateGameResponse>}
+ *   !proto.game.CreateGameRequest,
+ *   !proto.game.CreateGameResponse>}
  */
 const methodDescriptor_GameService_CreateGame = new grpc.web.MethodDescriptor(
-  '/Game.GameService/CreateGame',
+  '/game.GameService/CreateGame',
   grpc.web.MethodType.UNARY,
-  proto.Game.CreateGameRequest,
-  proto.Game.CreateGameResponse,
+  proto.game.CreateGameRequest,
+  proto.game.CreateGameResponse,
   /**
-   * @param {!proto.Game.CreateGameRequest} request
+   * @param {!proto.game.CreateGameRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Game.CreateGameResponse.deserializeBinary
+  proto.game.CreateGameResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Game.CreateGameRequest} request The
+ * @param {!proto.game.CreateGameRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Game.CreateGameResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.game.CreateGameResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Game.CreateGameResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.game.CreateGameResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.Game.GameServiceClient.prototype.createGame =
+proto.game.GameServiceClient.prototype.createGame =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/Game.GameService/CreateGame',
+      '/game.GameService/CreateGame',
       request,
       metadata || {},
       methodDescriptor_GameService_CreateGame,
@@ -118,17 +118,17 @@ proto.Game.GameServiceClient.prototype.createGame =
 
 
 /**
- * @param {!proto.Game.CreateGameRequest} request The
+ * @param {!proto.game.CreateGameRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Game.CreateGameResponse>}
+ * @return {!Promise<!proto.game.CreateGameResponse>}
  *     Promise that resolves to the response
  */
-proto.Game.GameServicePromiseClient.prototype.createGame =
+proto.game.GameServicePromiseClient.prototype.createGame =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/Game.GameService/CreateGame',
+      '/game.GameService/CreateGame',
       request,
       metadata || {},
       methodDescriptor_GameService_CreateGame);
@@ -138,39 +138,39 @@ proto.Game.GameServicePromiseClient.prototype.createGame =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.Game.JoinGameRequest,
- *   !proto.Game.JoinGameResponse>}
+ *   !proto.game.JoinGameRequest,
+ *   !proto.game.JoinGameResponse>}
  */
 const methodDescriptor_GameService_JoinGame = new grpc.web.MethodDescriptor(
-  '/Game.GameService/JoinGame',
+  '/game.GameService/JoinGame',
   grpc.web.MethodType.UNARY,
-  proto.Game.JoinGameRequest,
-  proto.Game.JoinGameResponse,
+  proto.game.JoinGameRequest,
+  proto.game.JoinGameResponse,
   /**
-   * @param {!proto.Game.JoinGameRequest} request
+   * @param {!proto.game.JoinGameRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.Game.JoinGameResponse.deserializeBinary
+  proto.game.JoinGameResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.Game.JoinGameRequest} request The
+ * @param {!proto.game.JoinGameRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.Game.JoinGameResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.game.JoinGameResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.Game.JoinGameResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.game.JoinGameResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.Game.GameServiceClient.prototype.joinGame =
+proto.game.GameServiceClient.prototype.joinGame =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/Game.GameService/JoinGame',
+      '/game.GameService/JoinGame',
       request,
       metadata || {},
       methodDescriptor_GameService_JoinGame,
@@ -179,22 +179,139 @@ proto.Game.GameServiceClient.prototype.joinGame =
 
 
 /**
- * @param {!proto.Game.JoinGameRequest} request The
+ * @param {!proto.game.JoinGameRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.Game.JoinGameResponse>}
+ * @return {!Promise<!proto.game.JoinGameResponse>}
  *     Promise that resolves to the response
  */
-proto.Game.GameServicePromiseClient.prototype.joinGame =
+proto.game.GameServicePromiseClient.prototype.joinGame =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/Game.GameService/JoinGame',
+      '/game.GameService/JoinGame',
       request,
       metadata || {},
       methodDescriptor_GameService_JoinGame);
 };
 
 
-module.exports = proto.Game;
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.game.UpdateGameStateRequest,
+ *   !proto.game.UpdateGameStateResponse>}
+ */
+const methodDescriptor_GameService_UpdateGameState = new grpc.web.MethodDescriptor(
+  '/game.GameService/UpdateGameState',
+  grpc.web.MethodType.UNARY,
+  proto.game.UpdateGameStateRequest,
+  proto.game.UpdateGameStateResponse,
+  /**
+   * @param {!proto.game.UpdateGameStateRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.game.UpdateGameStateResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.game.UpdateGameStateRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.game.UpdateGameStateResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.game.UpdateGameStateResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.game.GameServiceClient.prototype.updateGameState =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/game.GameService/UpdateGameState',
+      request,
+      metadata || {},
+      methodDescriptor_GameService_UpdateGameState,
+      callback);
+};
+
+
+/**
+ * @param {!proto.game.UpdateGameStateRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.game.UpdateGameStateResponse>}
+ *     Promise that resolves to the response
+ */
+proto.game.GameServicePromiseClient.prototype.updateGameState =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/game.GameService/UpdateGameState',
+      request,
+      metadata || {},
+      methodDescriptor_GameService_UpdateGameState);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.game.StreamGameUpdatesRequest,
+ *   !proto.game.StreamGameUpdatesResponse>}
+ */
+const methodDescriptor_GameService_StreamGameUpdates = new grpc.web.MethodDescriptor(
+  '/game.GameService/StreamGameUpdates',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.game.StreamGameUpdatesRequest,
+  proto.game.StreamGameUpdatesResponse,
+  /**
+   * @param {!proto.game.StreamGameUpdatesRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.game.StreamGameUpdatesResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.game.StreamGameUpdatesRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.game.StreamGameUpdatesResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.game.GameServiceClient.prototype.streamGameUpdates =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/game.GameService/StreamGameUpdates',
+      request,
+      metadata || {},
+      methodDescriptor_GameService_StreamGameUpdates);
+};
+
+
+/**
+ * @param {!proto.game.StreamGameUpdatesRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.game.StreamGameUpdatesResponse>}
+ *     The XHR Node Readable Stream
+ */
+proto.game.GameServicePromiseClient.prototype.streamGameUpdates =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/game.GameService/StreamGameUpdates',
+      request,
+      metadata || {},
+      methodDescriptor_GameService_StreamGameUpdates);
+};
+
+
+module.exports = proto.game;
 
