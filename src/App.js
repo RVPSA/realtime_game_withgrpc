@@ -1,14 +1,15 @@
 import React from "react";
-import Welcome from "./component/Welcome";
-import Alert from "./component/Alert";
-import GameBoard from "./component/GameBoard";
+import NavRoute from "./route/NavRoute";
 
 function App() {
-  return <div className="bg-cyan-800 min-h-screen relative">
-    {/* <Welcome></Welcome> */}
-    <GameBoard></GameBoard>
-    {/* <Alert> </Alert> */}
-    </div>;
+  return (
+    <div className="bg-cyan-800 min-h-screen relative">
+      <NavRoute></NavRoute>
+      {/* <Welcome></Welcome> */}
+      {/* <GameBoard></GameBoard> */}
+      {/* <Alert> </Alert> */}
+    </div>
+  );
 }
 
 export default App;

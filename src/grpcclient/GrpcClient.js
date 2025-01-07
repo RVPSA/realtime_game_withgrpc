@@ -57,7 +57,7 @@ export const UpdateGameState = (gameId, playerName, newState) => {
       if (err) {
         reject(err);
       } else {
-        console.log(response.toObject());
+        // console.log(response.toObject());
         // localStorage.setItem("gameId",response.toObject().gameId)
         resolve(response.toObject());
       }
