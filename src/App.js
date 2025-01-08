@@ -5,9 +5,6 @@ function App() {
   return (
     <div className="bg-cyan-800 min-h-screen relative">
       <NavRoute></NavRoute>
-      {/* <Welcome></Welcome> */}
-      {/* <GameBoard></GameBoard> */}
-      {/* <Alert> </Alert> */}
     </div>
   );
 }
