@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StreamGameUpdate } from "../grpcclient/GrpcClient";
 import Tile from "./Tile";
+import Alert from "./Alert";
+import { useNavigate } from "react-router-dom";
 
 const GameBoard = () => {
   const [gameId, setGameId] = useState("");
@@ -8,6 +10,10 @@ const GameBoard = () => {
   const [oppsiteTile, setOppositeTile] = useState([]);
   const [myTile, setMyTile] = useState([]);
   const [disable, setDisable] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [object, setObject] = useState({});
+
+    const navigate = useNavigate();
 
   useEffect(() => {
     handleStreamUpdate();
@@ -24,11 +30,63 @@ const GameBoard = () => {
 
         var splitResponse = message.update.split(/[::]/);
         if (splitResponse[0] == playerNamel) {
-          setMyTile((prev) => [...prev, splitResponse[2]]);
-          setDisable(true)
+          if (splitResponse[2] == "wins") {
+            setAlert(true);
+            setObject({
+              status: "win",
+              msg1: "You won the game",
+              msg2: ``,
+              btnfunction: () => {
+                navigate("/");
+                setAlert(false);
+              },
+              isError: false,
+            });
+          } else if (splitResponse[2] == "draw") {
+            setAlert(true);
+            setObject({
+              status: "",
+              msg1: "Game Draw",
+              msg2: ``,
+              btnfunction: () => {
+                navigate("/");
+                setAlert(false);
+              },
+              isError: false,
+            });
+          } else {
+            setMyTile((prev) => [...prev, splitResponse[2]]);
+            setDisable(true);
+          }
         } else {
-          setOppositeTile((prev) => [...prev, splitResponse[2]]);
-          setDisable(false);
+          if (splitResponse[2] == "wins") {
+            setAlert(true);
+            setObject({
+              status: "loss",
+              msg1: "You loss",
+              msg2: `Try again`,
+              btnfunction: () => {
+                navigate("/");
+                setAlert(false);
+              },
+              isError: false,
+            });
+          } else if (splitResponse[2] == "draw") {
+            setAlert(true);
+            setObject({
+              status: "",
+              msg1: "Game Draw",
+              msg2: ``,
+              btnfunction: () => {
+                navigate("/");
+                setAlert(false);
+              },
+              isError: false,
+            });
+          } else {
+            setOppositeTile((prev) => [...prev, splitResponse[2]]);
+            setDisable(false);
+          }
         }
       },
       gameIdl,
@@ -199,6 +257,7 @@ const GameBoard = () => {
             <div className='col-start-3 col-end-5'>3</div>
             <div className='col-start-5 col-end-7'>3</div> */}
       {/* </div> */}
+      {alert && <Alert object={object} gameStatus={true}></Alert>}
     </div>
   );
 };
